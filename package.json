@@ -1,0 +1,40 @@
+{
+  "name": "plandit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "proxy": "http://localhost:3001",
+  "jest": {
+    "testURL": "http://localhost:3001",
+    "modulePathIgnorePatterns": [
+      "client"
+    ]
+  },
+  "scripts": {
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "seed": "node scripts/userSeed.js",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build",
+    "lint": "eslint",
+    "fix": "eslint --fix .",
+    "test": "jest --verbose && npm run lint",
+    "test-dev": "concurrently \"nodemon server.js\" \"jest --watchAll\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.23"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "eslint": "^7.4.0",
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.4"
+  }
+}
